@@ -14,6 +14,7 @@ def fp1(userId,tableId):
                 inner.append(data[j][0]);
         transactions.append(inner);
         inner=[]
+    print(transactions)
     patterns = pyfpgrowth.find_frequent_patterns(transactions, 5);
     for keys,values in patterns.items():
         print(keys,"      ",values )
