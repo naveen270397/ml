@@ -81,51 +81,54 @@ def main():
         data[item].append(0);
     for item in range(1000):
         if data[item][5]==0:
-            data[item][6]=0 ;
+            data[item][6]=1
     for item in range(1000):
-
         if data[item][5]==1111:
-            data[item][6]=0;
-
+            data[item][7]=25
     for item in range(1000):
-
         if data[item][5]==22222:
-            data[item][6]=1;
-
+            data[item][8]=50
     for item in range(1000):
-
         if data[item][5]==333333:
-            data[item][6]=1;
-
+            data[item][9]=75
+#    for item in range(1000):
+#        print(data[item]);
     x1_train=[];
     y1_train=[];
-    # x2_train=[];
-    # y2_train=[];
-    # x3_train=[];
-    # y3_train=[];
-    # x4_train=[];
-    # y4_train=[];
+    x2_train=[];
+    y2_train=[];
+    x3_train=[];
+    y3_train=[];
+    x4_train=[];
+    y4_train=[];
     for item in range(1000):
         x1_train.append(data[item][5])
         y1_train.append(data[item][6])
-    # for item in range(1000):
-    #     x2_train.append(data[item][5])
-    #     y2_train.append(data[item][7])
-    # for item in range(1000):
-    #     x3_train.append(data[item][5])
-    #     y3_train.append(data[item][8])
-    # for item in range(1000):
-    #     x4_train.append(data[item][5])
-    #     y4_train.append(data[item][9])
+    for item in range(1000):
+        x2_train.append(data[item][5])
+        y2_train.append(data[item][7])
+    for item in range(1000):
+        x3_train.append(data[item][5])
+        y3_train.append(data[item][8])
+    for item in range(1000):
+        x4_train.append(data[item][5])
+        y4_train.append(data[item][9])
 
+    for item in range(1000):
+        if (x2_train[item]!=1111):
+            x2_train[item]=0;
+        if (x3_train[item]!=22222):
+            x3_train[item]=0;
+        if (x4_train[item]!=333333):
+            x4_train[item]=0;
     logisticRegr1 = LogisticRegression()
     logisticRegr1.fit(np.array(x1_train).reshape(-1,1), y1_train)
-    # logisticRegr2 = LogisticRegression()
-    # logisticRegr2.fit(np.array(x2_train).reshape(-1,1), y2_train)
-    # logisticRegr3 = LogisticRegression()
-    # logisticRegr3.fit(np.array(x3_train).reshape(-1,1), y3_train)
-    # logisticRegr4 = LogisticRegression()
-    # logisticRegr4.fit(np.array(x4_train).reshape(-1,1), y4_train)
+    logisticRegr2 = LogisticRegression()
+    logisticRegr2.fit(np.array(x2_train).reshape(-1,1), y2_train)
+    logisticRegr3 = LogisticRegression()
+    logisticRegr3.fit(np.array(x3_train).reshape(-1,1), y3_train)
+    logisticRegr4 = LogisticRegression()
+    logisticRegr4.fit(np.array(x4_train).reshape(-1,1), y4_train)
 
     x_test=[str(x) for x in input().split()];
     x_test[3]=int(x_test[3])
@@ -134,22 +137,25 @@ def main():
     for item in range(1000):
         if data[item][0]==x_test[0]:
             x_test[5]=1111;
+    for item in range(1000):
         if data[item][0]==x_test[0] and data[item][1]==x_test[1]:
             x_test[5]=22222;
-            print(x_test[5])
-        if data[item][0]==x_test[0] and data[item][1]==x_test[1] and data[item][2]==x_test[2]:
-            x_test[5]=333333;
-            print(x_test[5])
+    for item in range(1000):
+        if data[item][0]==x_test[0] and data[item][1]==x_test[1]:
+            if data[item][2]==x_test[2]:
+                x_test[5]=333333;
 
+
+#    print(x_test);
     test_x=np.array(x_test[5]);
-    # print(test_x);
-    predictions = logisticRegr1.predict(test_x.reshape(-1,1));
-    print(predictions);
-    # predictions = logisticRegr2.predict(test_x.reshape(-1,1));
-    # print(predictions);
-    # predictions = logisticRegr3.predict(test_x.reshape(-1,1));
-    # print(predictions);
-    # predictions = logisticRegr4.predict(test_x.reshape(-1,1));
-    # print(predictions);
+#    print(test_x);
+    predictions1 = logisticRegr1.predict(test_x.reshape(-1,1));
+    print(predictions1/100);
+    predictions2 = logisticRegr2.predict(test_x.reshape(-1,1));
+    print(predictions2/100);
+    predictions3 = logisticRegr3.predict(test_x.reshape(-1,1));
+    print(predictions3/100);
+    predictions4 = logisticRegr4.predict(test_x.reshape(-1,1));
+    print(predictions4/100);
 if __name__=="__main__":
     main();
